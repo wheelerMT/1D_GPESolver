@@ -3,7 +3,7 @@ project(1D_GPESolver)
 
 set(CMAKE_CXX_STANDARD 14)
 
-INCLUDE_DIRECTORIES(C:/dev/cpp/libs/fftw-3.3.5-dll64)
+INCLUDE_DIRECTORIES(C:/dev/cpp/libs/fftw-3.3.5-dll64 include/)
 LINK_DIRECTORIES(C:/dev/cpp/libs/fftw-3.3.5-dll64)
 
 add_executable(1D_GPESolver src/main.cpp)
