@@ -1,18 +1,9 @@
 #include "constants.h"
 #include "fftw3.h"
+#include "symplectic.h"
 #include <cmath>
 #include <complex>
 #include <iostream>
-
-double normalise(std::complex<double> *t_wfn, int t_arrayLength, double t_dx) {
-  double sum = 0.;
-
-  for (int i = 0; i < t_arrayLength; ++i) {
-    sum += (std::abs(t_wfn[i]) * std::abs(t_wfn[i])) * t_dx;
-  }
-
-  return sum;
-}
 
 int main() {
 
@@ -82,8 +73,8 @@ int main() {
 
     // Kinetic half-step evolution:
     for (int j = 0; j < Nx; ++j) {
-      psi_k[j] = (psi_k[j] * exp(-0.5 * dt * kx[j] * kx[j]))
-                 / static_cast<double>(Nx);
+      psi_k[j] =
+          (psi_k[j] * exp(-0.5 * dt * kx[j] * kx[j])) / static_cast<double>(Nx);
     }
 
     fftw_execute(p_back); // Backward FFT
@@ -97,7 +88,7 @@ int main() {
 
     // Renormalise wavefunction:
     for (auto &j : psi) {
-      j = sqrt(N) * j / normalise(psi, Nx, dx);
+      j = sqrt(N) * j / symplectic::normalise(psi, Nx, dx);
     }
 
     // Print time
