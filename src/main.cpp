@@ -34,12 +34,12 @@ int main() {
     }
 
     // Condensate parameters //
-    double c0 = 1.;   // Interaction strength
-    double N = 1000.; // Atom number
+    const double c0 = 1.;   // Interaction strength
+    const double N = 1000.; // Atom number
 
     // Time parameters //
-    int Nt = 10000;   // Number of timesteps
-    double dt = 1e-2; // Timestep
+    const int Nt = 10000;   // Number of timesteps
+    const double dt = 1e-2; // Timestep
     double t = 0;     // Time
 
     // -------------- Set up FFT plans -------------- //
