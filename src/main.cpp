@@ -82,7 +82,8 @@ int main() {
 
     // Kinetic half-step evolution:
     for (int j = 0; j < Nx; ++j) {
-      psi_k[j] = (psi_k[j] * exp(-0.5 * dt * kx[j] * kx[j])) / (double)Nx;
+      psi_k[j] = (psi_k[j] * exp(-0.5 * dt * kx[j] * kx[j]))
+                 / static_cast<double>(Nx);
     }
 
     fftw_execute(p_back); // Backward FFT
