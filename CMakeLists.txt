@@ -6,5 +6,12 @@ set(CMAKE_CXX_STANDARD 14)
 INCLUDE_DIRECTORIES(C:/dev/cpp/libs/fftw-3.3.5-dll64 include/)
 LINK_DIRECTORIES(C:/dev/cpp/libs/fftw-3.3.5-dll64)
 
-add_executable(1D_GPESolver src/main.cpp)
+add_executable(1D_GPESolver
+        src/main.cpp
+
+        include/constants.h
+
+        src/symplectic.cpp
+        include/symplectic.h)
+
 TARGET_LINK_LIBRARIES(1D_GPESolver libfftw3-3.lib)
