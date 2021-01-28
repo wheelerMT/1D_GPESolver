@@ -7,8 +7,8 @@
 
 int main() {
 
-    /* -------------- Controlled variables -------------- */
-    /* Grid parameters */
+    // -------------- Controlled variables -------------- //
+    // Grid parameters //
     const int Nx = 128; // Grid pts
     const int Mx = Nx / 2;
     const double dx = 1.;              // Grid spacing
@@ -17,13 +17,13 @@ int main() {
     double kx[Nx];
     double V[Nx];
 
-    /* Generate 1D grid and harmonic trap */
+    // Generate 1D grid and harmonic trap
     for (int i = 0; i < Nx; ++i) {
         x[i] = (-Mx + double(i)) * dx;
         V[i] = 0.5 * pow(x[i], 2);
     }
 
-    /* Generate 1D shifted k-space grid */
+    // Generate 1D shifted k-space grid //
     for (int i = 0; i < Nx; ++i) {
         if (i < Nx / 2) {
             kx[i] = double(i) * dkx;
@@ -33,16 +33,16 @@ int main() {
         }
     }
 
-    /* Condensate parameters */
+    // Condensate parameters //
     double c0 = 1.;   // Interaction strength
     double N = 1000.; // Atom number
 
-    /* Time parameters */
+    // Time parameters //
     int Nt = 10000;   // Number of timesteps
     double dt = 1e-2; // Timestep
     double t = 0;     // Time
 
-    /* -------------- Set up FFT plans -------------- */
+    // -------------- Set up FFT plans -------------- //
     fftw_plan p_forward, p_back;
 
     std::complex<double> psi[Nx], psi_k[Nx];
@@ -52,12 +52,12 @@ int main() {
     p_back = fftw_plan_dft_1d(Nx, reinterpret_cast<fftw_complex *>(psi_k), reinterpret_cast<fftw_complex *>(psi),
                               FFTW_BACKWARD, FFTW_ESTIMATE);
 
-    /* -------------- Generate initial Gaussian -------------- */
+    // -------------- Generate initial Gaussian -------------- //
     for (int i = 0; i < Nx; ++i) {
         psi[i] = sqrt(N) / Nx * exp((-x[i] * x[i]));
     }
 
-    /* -------------- Imaginary time evolution -------------- */
+    // -------------- Imaginary time evolution -------------- //
     for (int i = 0; i < Nt; ++i) {
 
         // Potential half-step evolution:
