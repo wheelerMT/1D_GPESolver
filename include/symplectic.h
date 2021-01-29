@@ -8,6 +8,6 @@
 #include <complex>
 
 namespace symplectic {
-    double normalise(std::complex<double> *t_wfn, int t_arrayLength, double t_dx);
+    double normalise(const std::complex<double> *t_wfn, int t_arrayLength, double t_dx);
 }
 #endif // INC_1D_GPESOLVER_SYMPLECTIC_H

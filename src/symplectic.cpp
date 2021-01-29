@@ -5,7 +5,7 @@
 #include "symplectic.h"
 
 namespace symplectic {
-    double normalise(std::complex<double> *t_wfn, const int t_arrayLength, const double t_dx) {
+    double normalise(const std::complex<double> *t_wfn, const int t_arrayLength, const double t_dx) {
         double sum = 0.;
 
         for (int i = 0; i < t_arrayLength; ++i) {
