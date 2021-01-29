@@ -5,13 +5,28 @@
 #include "symplectic.h"
 
 namespace symplectic {
-    double normalise(std::complex<double> *t_wfn, const int t_arrayLength, const double t_dx) {
-        double sum = 0.;
+    double getAtomNum(const std::complex<double> *wfn, int arrayLength, double dx) {
+        double atom_num = 0.;
 
-        for (int i = 0; i < t_arrayLength; ++i) {
-            sum += (std::abs(t_wfn[i]) * std::abs(t_wfn[i])) * t_dx;
+        for (int i = 0; i < arrayLength; ++i) {
+            atom_num += (std::abs(wfn[i]) * std::abs(wfn[i])) * dx;
         }
 
-        return sum;
+        return atom_num;
+    }
+
+    void potentialEvolution(std::complex<double> *wfn, const double *pot, double g, double dt, int arrayLength) {
+        // Computes the potential evolution part of GPE
+        for (int i = 0; i < arrayLength; ++i) {
+
+            wfn[i] = wfn[i] * exp(-0.5 * dt * (pot[i] + g * abs(wfn[i]) * abs(wfn[i])));
+        }
+    }
+
+    void kineticEvolution(std::complex<double> *wfn_k, const double *wvn, double dt, int arrayLength) {
+        // Computes the kinetic evolution part of GPE
+        for (int i = 0; i < arrayLength; ++i) {
+            wfn_k[i] = (wfn_k[i] * exp(-0.5 * dt * wvn[i] * wvn[i])) / static_cast<double>(arrayLength);
+        }
     }
 } // namespace symplectic

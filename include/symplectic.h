@@ -8,6 +8,10 @@
 #include <complex>
 
 namespace symplectic {
-    double normalise(std::complex<double> *t_wfn, int t_arrayLength, double t_dx);
+    double getAtomNum(const std::complex<double> *wfn, int arrayLength, double dx);
+
+    void potentialEvolution(std::complex<double> *wfn, const double *pot, double g, double dt, int arrayLength);
+
+    void kineticEvolution(std::complex<double> *wfn_k, const double *wvn, double dt, int arrayLength);
 }
 #endif // INC_1D_GPESOLVER_SYMPLECTIC_H
