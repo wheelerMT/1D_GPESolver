@@ -61,29 +61,21 @@ int main() {
     for (int i = 0; i < Nt; ++i) {
 
         // Potential half-step evolution:
-        for (int j = 0; j < Nx; ++j) {
-
-            psi[j] = psi[j] * exp(-0.5 * dt * (V[j] + c0 * abs(psi[j]) * abs(psi[j])));
-        }
+        symplectic::potentialEvolution(psi, V, c0, dt, Nx);
 
         fftw_execute(p_forward); // Forward FFT
 
         // Kinetic half-step evolution:
-        for (int j = 0; j < Nx; ++j) {
-            psi_k[j] = (psi_k[j] * exp(-0.5 * dt * kx[j] * kx[j])) / static_cast<double>(Nx);
-        }
+        symplectic::kineticEvolution(psi_k, kx, dt, Nx);
 
         fftw_execute(p_back); // Backward FFT
 
         // Potential half-step evolution:
-        for (int j = 0; j < Nx; ++j) {
-
-            psi[j] = psi[j] * exp(-0.5 * dt * (V[j] + c0 * abs(psi[j]) * abs(psi[j])));
-        }
+        symplectic::potentialEvolution(psi, V, c0, dt, Nx);
 
         // Renormalise wavefunction:
         for (auto &j : psi) {
-            j = sqrt(N) * j / symplectic::normalise(psi, Nx, dx);
+            j = sqrt(N) * j / symplectic::getAtomNum(psi, Nx, dx);
         }
 
         // Print time
