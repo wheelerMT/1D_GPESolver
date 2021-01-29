@@ -1,7 +1,6 @@
 #include "constants.h"
 #include "fftw3.h"
 #include "symplectic.h"
-#include <cmath>
 #include <complex>
 #include <iostream>
 
