@@ -79,9 +79,7 @@ int main() {
         }
 
         // Print time
-        if (i % 100 == 0) {
-            std::cout << "t = " << t << '\n';
-        }
+        if (i % 100 == 0) { std::cout << "t = " << t << '\n'; }
 
         t += dt;
     }
