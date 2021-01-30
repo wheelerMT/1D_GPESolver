@@ -3,6 +3,7 @@
 #include "symplectic.h"
 #include <complex>
 #include <iostream>
+#include <vector>
 
 int main() {
 
@@ -12,9 +13,9 @@ int main() {
     const int Mx = Nx / 2;
     const double dx = 1.;              // Grid spacing
     const double dkx = PI / (Mx * dx); // k-space spacing
-    double x[Nx];
-    double kx[Nx];
-    double V[Nx];
+    std::vector<double> x(Nx);
+    std::vector<double> kx(Nx);
+    std::vector<double> V(Nx);
 
     // Generate 1D grid and harmonic trap
     for (int i = 0; i < Nx; ++i) {
@@ -50,6 +51,8 @@ int main() {
                                  FFTW_FORWARD, FFTW_ESTIMATE);
     p_back = fftw_plan_dft_1d(Nx, reinterpret_cast<fftw_complex *>(psi_k), reinterpret_cast<fftw_complex *>(psi),
                               FFTW_BACKWARD, FFTW_ESTIMATE);
+
+
 
     // -------------- Generate initial Gaussian -------------- //
     for (int i = 0; i < Nx; ++i) {

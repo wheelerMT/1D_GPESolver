@@ -15,7 +15,7 @@ namespace symplectic {
         return atom_num;
     }
 
-    void potentialEvolution(std::complex<double> *wfn, const double *pot, double g, double dt, int arrayLength) {
+    void potentialEvolution(std::complex<double> *wfn, const std::vector<double>& pot, double g, double dt, int arrayLength) {
         // Computes the potential evolution part of GPE
         for (int i = 0; i < arrayLength; ++i) {
 
@@ -23,7 +23,7 @@ namespace symplectic {
         }
     }
 
-    void kineticEvolution(std::complex<double> *wfn_k, const double *wvn, double dt, int arrayLength) {
+    void kineticEvolution(std::complex<double> *wfn_k, const std::vector<double>& wvn, double dt, int arrayLength) {
         // Computes the kinetic evolution part of GPE
         for (int i = 0; i < arrayLength; ++i) {
             wfn_k[i] = (wfn_k[i] * exp(-0.5 * dt * wvn[i] * wvn[i])) / static_cast<double>(arrayLength);

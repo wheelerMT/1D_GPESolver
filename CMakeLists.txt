@@ -11,7 +11,8 @@ add_executable(1D_GPESolver
 
         include/constants.h
 
-        src/symplectic.cpp
-        include/symplectic.h)
+        src/symplectic.cpp include/symplectic.h
+
+        src/Wavefunction.cpp include/Wavefunction.h)
 
 TARGET_LINK_LIBRARIES(1D_GPESolver libfftw3-3.lib)
