@@ -10,7 +10,7 @@ int main() {
 
     // -------------- Controlled variables -------------- //
     // Grid parameters //
-    const int Nx = 512; // Grid pts
+    const int Nx = 4096; // Grid pts
     const int Mx = Nx / 2;
     const double dx = 1.;              // Grid spacing
     const double dkx = PI / (Mx * dx); // k-space spacing
@@ -39,21 +39,20 @@ int main() {
     const double N = 100000.; // Atom number
 
     // Time parameters //
-    const int Nt = 1000;   // Number of timesteps
+    const int Nt = 10000;   // Number of timesteps
     const double dt = 1e-2; // Timestep
     double t = 0;     // Time
 
+    // Wavefunction //
+    std::complex<double> psi[Nx], psi_k[Nx];
+
     // -------------- Set up FFT plans -------------- //
     fftw_plan p_forward, p_back;
-
-    std::complex<double> psi[Nx], psi_k[Nx];
 
     p_forward = fftw_plan_dft_1d(Nx, reinterpret_cast<fftw_complex *>(psi), reinterpret_cast<fftw_complex *>(psi_k),
                                  FFTW_FORWARD, FFTW_ESTIMATE);
     p_back = fftw_plan_dft_1d(Nx, reinterpret_cast<fftw_complex *>(psi_k), reinterpret_cast<fftw_complex *>(psi),
                               FFTW_BACKWARD, FFTW_ESTIMATE);
-
-
 
     // -------------- Generate initial Gaussian -------------- //
     for (int i = 0; i < Nx; ++i) {
@@ -77,9 +76,7 @@ int main() {
         symplectic::potentialEvolution(psi, V, c0, dt);
 
         // Renormalise wavefunction:
-        for (auto &j : psi) {
-            j = sqrt(N) * j / symplectic::getAtomNum(psi, Nx, dx);
-        }
+        symplectic::normalise(psi, Nx, dx, N);
 
         // Print time
         if (i % 100 == 0) { std::cout << "t = " << t << '\n'; }

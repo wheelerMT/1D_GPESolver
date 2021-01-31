@@ -9,7 +9,7 @@
 #include <vector>
 
 namespace symplectic {
-    double getAtomNum(const std::complex<double> *wfn, int arrayLength, double dx);
+    double normalise(std::complex<double> *wfn, int arrayLength, double dx, double N);
 
     void potentialEvolution(std::complex<double> *wfn, const std::vector<double> &pot,
                             double g, double dt);
