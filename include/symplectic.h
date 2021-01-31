@@ -11,9 +11,9 @@
 namespace symplectic {
     double getAtomNum(const std::complex<double> *wfn, int arrayLength, double dx);
 
-    void potentialEvolution(std::complex<double> *wfn, const std::vector<double>& pot,
-                            double g, double dt, int arrayLength);
+    void potentialEvolution(std::complex<double> *wfn, const std::vector<double> &pot,
+                            double g, double dt);
 
-    void kineticEvolution(std::complex<double> *wfn_k, const std::vector<double>& wvn, double dt, int arrayLength);
+    void kineticEvolution(std::complex<double> *wfn_k, const std::vector<double> &wvn, double dt);
 }
 #endif // INC_1D_GPESOLVER_SYMPLECTIC_H
